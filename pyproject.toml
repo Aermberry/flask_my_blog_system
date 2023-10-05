@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "flask-my-blog-system"
+version = "0.1.0"
+description = ""
+authors = ["Salmon <sos2012happy@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+Flask-RESTful = "^0.3.10"
+Flask = "^3.0.0"
+python-dotenv = "^1.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
