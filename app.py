@@ -3,7 +3,11 @@ import os
 from dotenv import load_dotenv, dotenv_values
 from flask import Flask
 
+from api.views import bp
+
 app = Flask(__name__)
+
+app.register_blueprint(bp)
 
 load_dotenv()
 
@@ -25,7 +29,7 @@ env_config = dotenv_values("./env/.env")
 app_config = {
     "host": env_config.get("APP_HOST", "0.0.0.0"),
     "port": env_config.get("FLASK_DEVELOPMENT_PORT", 8000),
-    "debug": env_config.get("FLASK_DEBUG", False)
+    "debug": env_config.get("FLASK_DEBUG", True)
 }
 
 if __name__ == '__main__':

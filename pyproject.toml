@@ -10,6 +10,7 @@ python = "^3.8"
 Flask-RESTful = "^0.3.10"
 Flask = "^3.0.0"
 python-dotenv = "^1.0.0"
+flask-restx = "^1.1.0"
 
 
 [build-system]
