@@ -38,12 +38,12 @@ localizations_zh_tc 简体中文表
 
 target 目标表
 
-|     字段名     |   数据类型    | 是否为空（Y/N）(是否为空) | 注释         |
-| :------------: | :-----------: | :-----------------------: | ------------ |
-|       id       |      int      |             N             |              |
-|     title      |  VARCHAR(20)  |             N             | 目标标题     |
-|   image_url    |    VARCHAR    |             N             | 图片链接     |
-|  description   | VARCHAR(2000) |             N             | 目标描述     |
-|    summary     | VARCHAR(2000) |             N             | 总结目标     |
-| key_point_list |     JSON      |             Y             | 目标的关键点 |
+|     字段名     |   数据类型    | 是否为空（Y/N） | 注释         |
+| :------------: | :-----------: | :-------------: | ------------ |
+|       id       |      int      |        N        |              |
+|     title      |  VARCHAR(20)  |        N        | 目标标题     |
+|   image_url    |    VARCHAR    |        N        | 图片链接     |
+|  description   | VARCHAR(2000) |        N        | 目标描述     |
+|    summary     | VARCHAR(2000) |        N        | 总结目标     |
+| key_point_list |     JSON      |        Y        | 目标的关键点 |
 

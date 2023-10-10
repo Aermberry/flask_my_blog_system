@@ -1,6 +1,6 @@
 from flask import Blueprint
 from flask_restful import Api
-from api.resources.target import TargetList, Target
+from api.resources.target_resources import TargetList, Target
 
 bp = Blueprint('api', __name__, url_prefix='/api')
 
