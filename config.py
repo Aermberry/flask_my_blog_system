@@ -17,3 +17,5 @@ app_config = {
 }
 
 SQLALCHEMY_DATABASE_URI = database_config.get("SQLALCHEMY_DATABASE_URI")
+
+UPLOAD_FOLDER = env_config.get("UPLOAD_FOLDER")

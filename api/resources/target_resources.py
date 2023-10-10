@@ -1,65 +1,90 @@
-from flask_restful import Resource, abort
+from typing import Optional
+
 from flask import jsonify, request
+from flask_restful import Resource
 
 from models.target_do import TargetDO
 from packages.database_connecter import db
-from targets import targets
 
 
-class Target(Resource):
+class TargetResource(Resource):
     @staticmethod
-    def get_target_by_id(target_list, target_id):
-        return next((target for target in target_list if target['id'] == target_id), None)
+    def get_target_by_id(target_id) -> Optional[TargetDO]:
+        # return next((target for target in target_list if target['id'] == target_id), None)
+        return TargetDO.query.get_or_404(target_id)
 
     def get(self, target_id):
-
-        target = self.get_target_by_id(target_list=targets, target_id=target_id)
+        target = self.get_target_by_id(target_id=target_id)
         return jsonify(target)
 
     def delete(self, target_id):
-        target = None
+        # target = None
 
-        for index, target in enumerate(targets):
-            if target.get('id') == target_id:
-                target = target
-                # targets.pop(index)
-                print(index)
+        # for index, target in enumerate(targets):
+        #     if target.get('id') == target_id:
+        #         target = target
+        #         # targets.pop(index)
+        #         print(index)
+        #
+        # if target is None:
+        #     abort(404)
+        target = self.get_target_by_id(target_id)
 
-        if target is None:
-            abort(404)
+        db.session.delete(target)
+        db.session.commit()
 
         return jsonify({"message": "delete successful", "target": target})
 
     def put(self, target_id):
-        data = request.json
+        data: dict = request.json
 
-        target = None
-        for i, u in enumerate(targets):
-            if u.get("id") == target_id:
-                targets[i] = {**u, **data}
-                target = targets[i]
+        # target = None
 
-        if target is None:
-            abort(404)
+        target = self.get_target_by_id(target_id)
 
-        return {"msg": "target updated", "user": target}
+        target.title = data["title"]
+        target.image_url = data["image_url"]
+        target.description = data["description"]
+        target.summary = data["summary"]
+        target.key_point_list = data["key_point_list"]
+
+        db.session.commit()
+
+        # for i, u in enumerate(targets):
+        #     if u.get("id") == target_id:
+        #         targets[i] = {**u, **data}
+        #         target = targets[i]
+        #
+        # if target is None:
+        #     abort(404)
+
+        return jsonify({"msg": "target updated", "data": target})
 
     def patch(self, target_id):
-        data = request.json
+        data: dict = request.json
 
-        target = None
-        for i, u in enumerate(targets):
-            if u.get("id") == target_id:
-                target = targets[i]
-                target.update(data)
+        # target = None
+        # for i, u in enumerate(targets):
+        #     if u.get("id") == target_id:
+        #         target = targets[i]
+        #         target.update(data)
+        #
+        # if target is None:
+        #     abort(404)
 
-        if target is None:
-            abort(404)
+        target: TargetDO = self.get_target_by_id(target_id)
 
-        return {"msg": "target modify", "user": target}
+        # modify
+
+        for key, value in data.items():
+            setattr(target, key, value)
+
+        db.session.commit()
+
+        return jsonify({"msg": "target modify", "user": target})
 
 
-class TargetList(Resource):
+class TargetListResource(Resource):
     def get(self):
         target_list = TargetDO.query.all()
         return jsonify(target_list)
