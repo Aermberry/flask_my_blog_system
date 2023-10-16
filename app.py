@@ -1,4 +1,6 @@
 from flask import Flask
+
+import manage
 from api.views import bp
 from config import app_config
 from packages.database_connecter import db
@@ -12,8 +14,7 @@ app.config.from_object('config')
 db.init_app(app)
 serializable.init_app(app)
 migrate_util.init_app(app, db)
-
-app.extensions
+app.cli.add_command(manage.target_cli)
 
 @app.route('/')
 def hello_world():  # put application's code here
