@@ -17,7 +17,9 @@ class TargetResource(Resource):
 
     def get(self, target_id):
         target = self.get_target_by_id(target_id=target_id)
-        return jsonify(target)
+        schema: TargetSchema = TargetSchema()
+
+        return jsonify(schema.dump(target))
 
     def delete(self, target_id):
         # target = None
@@ -99,7 +101,23 @@ class TargetResource(Resource):
 
 class TargetListResource(Resource):
     def get(self):
-        target_list = TargetDO.query.all()
+        title_filter = request.args.get("title")
+
+        targets_query = TargetDO.query
+
+        if title_filter:
+            # ilike() 是 SQLAlchemy 的方法，用于执行大小写不敏感的模糊匹配。
+            # in_() 是 SQLAlchemy 的方法，用于执行包含操作。它允许你检查某个值是否包含在给定列表中。
+            #  users_query.filter(User.email.in_(email_filter.split(",")))
+            # email_filter.split(",") 是将 email_filter 字符串按逗号分隔的操作。它将逗号分隔的邮箱地址字符串拆分为一个邮箱地址列表。
+            # "sos222@gamil.com,sao2023@gmail.com"->["sos222@gamil.com","sao2023@gmail.com"]
+            # == 是 SQLAlchemy 中的比较操作符，表示等于。
+            # users_query = users_query.filter(User.age == age_filter)
+            targets_query = targets_query.filter(TargetDO.title.ilike(f"%{title_filter}%"))
+
+
+        target_list=targets_query.all()
+        # target_list = TargetDO.query.all()
         schema = TargetSchema(many=True)
         return {"data": schema.dump(target_list)}
 

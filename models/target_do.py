@@ -1,4 +1,3 @@
-from dataclasses import dataclass
 from packages.database_connecter import db
 
 
