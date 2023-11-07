@@ -115,8 +115,7 @@ class TargetListResource(Resource):
             # users_query = users_query.filter(User.age == age_filter)
             targets_query = targets_query.filter(TargetDO.title.ilike(f"%{title_filter}%"))
 
-
-        target_list=targets_query.all()
+        target_list = targets_query.all()
         # target_list = TargetDO.query.all()
         schema = TargetSchema(many=True)
         return {"data": schema.dump(target_list)}
