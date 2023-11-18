@@ -4,6 +4,7 @@ import manage
 from api.views import bp
 from config import app_config
 from packages.database_connecter import db
+from packages.authentication import jwt
 from packages.migrate_util import migrate_util
 from packages.serializable_util import serializable
 
@@ -12,9 +13,10 @@ app.register_blueprint(bp)
 app.config.from_object('config')
 
 db.init_app(app)
-serializable.init_app(app)
 migrate_util.init_app(app, db)
-app.cli.add_command(manage.target_cli)
+serializable.init_app(app)
+# app.cli.add_command(manage.target_cli)
+jwt.init_app(app)
 
 @app.route('/')
 def hello_world():  # put application's code here

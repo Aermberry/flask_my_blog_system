@@ -1,3 +1,5 @@
+import os
+
 from dotenv import dotenv_values
 
 # host = os.environ.get("APP_HOST", "0.0.0.0")
@@ -19,3 +21,7 @@ app_config = {
 SQLALCHEMY_DATABASE_URI = database_config.get("SQLALCHEMY_DATABASE_URI")
 
 UPLOAD_FOLDER = env_config.get("UPLOAD_FOLDER")
+
+JWT_SECRET_KEY = env_config.get("JWT_SECRET_KEY")
+JWT_TOKEN_LOCATION = ["headers"]
+JWT_IDENTITY_CLAIM = "user_id"  # default == sub
