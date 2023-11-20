@@ -18,5 +18,3 @@ class TargetDO(db.Model):
     description = db.Column(db.String, nullable=False)
     summary = db.Column(db.String, nullable=False)
     key_point_list = db.Column(db.JSON, nullable=True)
-    user_name = db.Column(db.String, nullable=True)
-    email = db.Column(db.String, nullable=False)

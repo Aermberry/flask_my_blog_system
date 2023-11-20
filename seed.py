@@ -1,7 +1,7 @@
 from sqlalchemy import text
 from app import db, app
 
-sql = open("users.sql", "r")
+sql = open("target.sql", "r", encoding="utf-8")
 statement = sql.read()
 
 with app.app_context():

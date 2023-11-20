@@ -15,7 +15,7 @@ app.config.from_object('config')
 db.init_app(app)
 migrate_util.init_app(app, db)
 serializable.init_app(app)
-# app.cli.add_command(manage.target_cli)
+app.cli.add_command(manage.target_cli)
 jwt.init_app(app)
 
 @app.route('/')
