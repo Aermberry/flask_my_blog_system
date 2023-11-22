@@ -1,6 +1,7 @@
 from typing import Optional
 
 from flask import jsonify, request
+from flask_jwt_extended import jwt_required
 from flask_restful import Resource
 from sqlalchemy import desc
 
@@ -10,6 +11,8 @@ from packages.database_connecter import db
 
 
 class TargetResource(Resource):
+    method_decorators = [jwt_required()]
+
     @staticmethod
     def get_target_by_id(target_id) -> Optional[TargetDO]:
         # return next((target for target in target_list if target['id'] == target_id), None)
@@ -101,6 +104,8 @@ class TargetResource(Resource):
 
 
 class TargetListResource(Resource):
+    method_decorators = [jwt_required()]
+
     def get(self):
         title_filter = request.args.get("title")
         sorts = request.args.get("sort")
