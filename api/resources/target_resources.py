@@ -6,6 +6,7 @@ from flask_restful import Resource
 from sqlalchemy import desc
 
 from api.schemas.target_schema import TargetSchema
+from auth.decorators import auth_role
 from models.target_do import TargetDO
 from packages.database_connecter import db
 
@@ -104,7 +105,7 @@ class TargetResource(Resource):
 
 
 class TargetListResource(Resource):
-    method_decorators = [jwt_required()]
+    method_decorators = [auth_role("admin"), jwt_required()]
 
     def get(self):
         title_filter = request.args.get("title")
