@@ -17,6 +17,8 @@ marshmallow-sqlalchemy = "^0.29.0"
 flask-marshmallow = "^0.15.0"
 flask-jwt-extended = "^4.5.3"
 passlib = "^1.7.4"
+flask-caching = "^2.1.0"
+redis = "^5.0.1"
 
 
 [build-system]

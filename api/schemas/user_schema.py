@@ -1,6 +1,6 @@
 from marshmallow import validate, validates_schema, ValidationError
 from marshmallow.fields import String
-from models.user_do import UserDo
+from models.user_do import UserDo, Role
 from packages.serializable_util import serializable
 
 
@@ -31,3 +31,8 @@ class UserCreateSchema(UserSchema):
                                   error="The password need to be at least 8 characters long, and have at least 1 of each of the following: lowercase letter, uppercase letter, special character, number."
                                   )],
     )
+
+
+class RoleSchema(serializable.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Role
