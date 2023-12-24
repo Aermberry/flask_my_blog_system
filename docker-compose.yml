@@ -3,13 +3,28 @@ services:
   redis:
     image: redislabs/redismod
     container_name: flask_redis
-  app:
-    build: .
+  flask:
+    build: ./flask_app
     container_name: flask
-    command: python app.py  --host=0.0.0.0 --reload
-    ports:
-      - 9000:9000
+    # command: python app.py  --host=0.0.0.0 --reload
+    # command: uwsgi --http 127.0.0.1:9000 --master -p 4 -w app:app
+    restart: always
+    environment:
+      - APP_NAME=MYFlaskApp
+      - DB_USERNAME=example
+    # ports:
+    #   - 9000:8000
+    expose:
+      - 8000
     volumes:
-      - ./:/app
+      - ./flask_app:/app
     depends_on:
       - redis
+  nginx:
+    build: ./nginx
+    container_name: flask_nginx
+    restart: always
+    ports:
+      - 80:80
+
+
